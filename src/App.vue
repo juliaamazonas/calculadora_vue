@@ -1,47 +1,81 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
+import { reactive, watch } from 'vue';
+
+import Cabecalho from './components/Cabecalho.vue';
+import Formulario from './components/Formulario.vue';
+
+const estado = reactive({
+    filtro: '',
+    numero1: '',
+    numero2: '',
+    resultado: '',
+})
+
+const getSomar = () => {
+
+    const { numero1, numero2 } = estado;
+    estado.resultado = numero1 + numero2;
+
+}
+
+const getSubtrair = () => {
+    
+    const { numero1, numero2 } = estado;
+    estado.resultado = numero1 - numero2;
+}
+
+const getMultiplicar = () => {
+    
+    const { numero1, numero2 } = estado;
+    estado.resultado = numero1 * numero2;
+}
+
+const getDivisao = () => {
+    
+    const { numero1, numero2 } = estado;
+    estado.resultado = numero1 / numero2;
+}
+
+const getOperacao = () => {
+    const { filtro } = estado;
+    console.log('Chamando getOperacao...')
+
+    switch (filtro) {
+      case 'adicao': 
+        return getSomar();
+      case 'subtracao': 
+        return getSubtrair();
+      case 'multiplicacao': 
+        return getMultiplicar();
+      case 'divisao': 
+        return getDivisao();
+    }
+  }
+
+  watch([() => estado.numero1, () => estado.numero2], () => {
+    getOperacao();
+});
+
+
+
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-    </div>
-  </header>
-
-  <main>
-    <TheWelcome />
-  </main>
+  <div class="container">
+    <Cabecalho></Cabecalho>
+    <Formulario></Formulario>
+    
+  </div>
 </template>
 
 <style scoped>
-header {
-  line-height: 1.5;
-}
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
+  .form-control {
+    border: 1px solid #000;
   }
 
-  .logo {
-    margin: 0 2rem 0 0;
+  .text-white {
+    font-size: 24px;
   }
 
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-}
 </style>
