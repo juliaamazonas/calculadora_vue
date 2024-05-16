@@ -62,8 +62,8 @@ const getOperacao = () => {
 
 <template>
   <div class="container">
-    <Cabecalho></Cabecalho>
-    <Formulario></Formulario>
+    <Cabecalho />
+    <Formulario :resultado="estado.resultado" :filtro="evento => estado.filtro = evento.target.value" :numero1="evento => estado.numero1 = parseInt(evento.target.value)" :numero2="evento => estado.numero2 = parseInt(evento.target.value)" />
     
   </div>
 </template>
